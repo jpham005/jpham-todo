@@ -26,10 +26,6 @@ function titleInit() {
 
   const date = new Date();
 
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-
   const timeFormat = new Intl.DateTimeFormat('ko-KR', {
     year: 'numeric',
     month: '2-digit',
@@ -39,9 +35,30 @@ function titleInit() {
   titleRef.innerText = timeFormat.replaceAll('.', '');
 }
 
+function listInit() {
+  const LIST_CLASSNAME = 'content__list';
+
+  const listRef = document.querySelector(`.${LIST_CLASSNAME}`);
+  if (listRef === null) return;
+
+  listRef.addEventListener('click', (e) => {
+    if (e.target.nodeName !== 'LI') return;
+
+    const classes = e.target.className.split(' ');
+
+    if (classes.includes(`${LIST_CLASSNAME}-item--done`)) {
+      e.target.className = `${LIST_CLASSNAME}-item`;
+      return;
+    }
+
+    e.target.className = `${LIST_CLASSNAME}-item ${LIST_CLASSNAME}-item--done`;
+  });
+}
+
 function App() {
   buttonInit();
   titleInit();
+  listInit();
 }
 
 (() => {
