@@ -1,35 +1,5 @@
 const arr = [];
-
-/*
-function buttonInit() {
-  const BUTTON_CLASSNAME = 'fab';
-
-  const buttonRef = document.querySelector(`.${BUTTON_CLASSNAME}`);
-  if (buttonRef === null) return;
-
-  buttonRef.addEventListener('click', () => {
-    const classes = buttonRef.className.split(' ');
-    if (classes.length === 0) return;
-
-    if (classes.includes(`${BUTTON_CLASSNAME}--new`)) {
-      let i = 0;
-      
-      while (1) {
-        arr[i] = prompt('할 일', '');
-        
-        if (arr[i] === null || arr[i] === '') break;
-        
-        addList(i);
-        
-        i++;
-        leftCount();
-        
-
-      }
-    }
-  });
-}
-*/
+let onoff = 0;
 
 const FAB_NAME = 'fab';
 const FAB_COLLAPSE_NAME = `${FAB_NAME}--collapse`;
@@ -65,7 +35,6 @@ function buttonInit() {
   });
 }
 
-
 function titleInit() {
   const TITLE_CLASSNAME = 'header__title';
 
@@ -90,22 +59,27 @@ function listInit() {
   const listRef = document.querySelector(`.${LIST_CLASSNAME}`);
   if (listRef === null) return;
   
-  if (check() === 0) {
-    listRef.addEventListener('click', (e) => {
-      if (e.target.nodeName !== 'LI') return;
 
-      const classes = e.target.className.split(' ');
-
+  listRef.addEventListener('click', (e) => {
+    if (e.target.nodeName !== 'LI') return;
+    const classes = e.target.className.split(' ');
+    
+    if (onoff === 0) {      
       if (classes.includes(`${LIST_CLASSNAME}-item--done`)) {
         e.target.className = `${LIST_CLASSNAME}-item`;
         return;
       }
-
-      e.target.className = `${LIST_CLASSNAME}-item ${LIST_CLASSNAME}-item--done`;
-    });
-  } else if (check() === 1) {
-    
-  }
+      e.target.className = `${LIST_CLASSNAME}-item ${LIST_CLASSNAME}-item--done`;      
+    } else if (onoff === 1) {
+      let a = e.target;
+      let b = Number(e.target.dataset.num);
+      listRef.removeChild(a);  
+      arr.splice(b, 1);
+      console.log(arr);
+      leftCount();
+      
+    }
+  });
 }
 
 function leftCount() {
@@ -115,6 +89,36 @@ function leftCount() {
   if (num === null) return;
 
   num.innerText = arr.length;
+  console.log(arr.length);
+}
+
+function addItem() {
+  const BUTTON_CLASSNAME = 'add-item__button';
+
+  const buttonRef = document.querySelector(`.${BUTTON_CLASSNAME}`);
+  if (buttonRef === null) return;
+
+  buttonRef.addEventListener('click', () => {
+    const classes = buttonRef.className.split(' ');
+    if (classes.length === 0) return;
+
+    if (classes.includes(`${BUTTON_CLASSNAME}`)) {
+      let i = 0;
+      
+      while (1) {
+        arr[i] = prompt('할 일', '');
+        
+        if (arr[i] === null || arr[i] === '') break;
+        
+        addList(i);
+        
+        i++;
+        leftCount();
+        
+
+      }
+    }
+  });
 }
 
 function addList(i) {
@@ -131,7 +135,7 @@ function addList(i) {
 }
 
 function deleteList() {
-  const BUTTON_CLASSNAME = 'sab';
+  const BUTTON_CLASSNAME = 'remove-item__button';
 
   const buttonRef = document.querySelector(`.${BUTTON_CLASSNAME}`);
   if (buttonRef === null) return;
@@ -142,32 +146,20 @@ function deleteList() {
 
     if (classes.includes(`${BUTTON_CLASSNAME}--off`)) {
       buttonRef.className = `${BUTTON_CLASSNAME} ${BUTTON_CLASSNAME}--on`;
+      onoff = 1;
     }
 
     if (classes.includes(`${BUTTON_CLASSNAME}--on`)) {
       buttonRef.className = `${BUTTON_CLASSNAME} ${BUTTON_CLASSNAME}--off`;
+      onoff = 0;
     }
   });
 }
 
-function check() {
-  const BUTTON_CLASSNAME = 'sab';
-
-  const buttonRef = document.querySelector(`.${BUTTON_CLASSNAME}`);
-  if (buttonRef === null) return;
-
-  const classes = buttonRef.className.split();
-  if (classes.includes(`${BUTTON_CLASSNAME}--off`)) {
-    return 0;
-  }
-
-  if (classes.includes(`${BUTTON_CLASSNAME}--on`)) {
-    return 1;
-  }  
-}
-
 function App() {
   leftCount();
+  addItem();
+  deleteList();
   buttonInit();
   titleInit();
   listInit();
@@ -176,22 +168,3 @@ function App() {
 (() => {
   App();
 })();
-
-/*
-시간
-리스트 갯수 세는 무언가 >> 배열 길이
-
-추가버튼 눌러서 리스트 추가
-  리스트 이름 입력받기 (한번 더 누를때까지 반복)
-  arr.push로 배열 저장
-  
-
-  
-
-삭제버튼 만들기
-  
-리스트 클릭시 줄긋기 + 전체 갯수 조절
-
-creatElement, appendChild 배열 길이동안 반복
-
-*/
