@@ -144,15 +144,74 @@ ul {
   transition: transform 250ms, background-color 250ms;
 }
 
-.fab--new {
+.fab--collapse {
   color: var(--grey-50);
-  background-color: var(--green-300);
-  transform: rotate(-45deg);
+  background-color: var(--green-500);
+  transform: rotate(360deg);
 }
 
-.fab--delete {
+.fab--collapse:hover {
+  background-color: var(--green-600);
+}
+
+.fab--extended {
   color: var(--grey-50);
   background-color: var(--cerise-500);
-  transform: rotate(0deg);
+  transform: rotate(0);
 }
 
+.fab--extended:hover {
+  background-color: var(--cerise-600);
+}
+
+.fab__container {
+  position: absolute;
+  right: 16px;
+  bottom: 104px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 200ms;
+}
+
+.fab__container--collapse {
+  opacity: 0;
+}
+
+.fab__container--extends {
+  opacity: 1;
+}
+
+.fab__container > button + button {
+  margin-top: 12px;
+}
+
+.fab__container > button {
+  text-transform: none;
+  -webkit-appearance: none;
+  padding: 8px;
+  border: 0;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  transition: transform 250ms, background-color 250ms;
+}
+
+.remove-item__button {
+  color: var(--grey-50);
+  background-color: var(--cerise-300);
+}
+
+.remove-item__button:hover {
+  background-color: var(--cerise-400);
+}
+
+.add-item__button {
+  color: var(--grey-50);
+  background-color: var(--green-300);
+}
+
+.add-item__button:hover {
+  background-color: var(--green-400);
+}

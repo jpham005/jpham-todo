@@ -1,5 +1,6 @@
 const arr = [];
 
+/*
 function buttonInit() {
   const BUTTON_CLASSNAME = 'fab';
 
@@ -28,6 +29,42 @@ function buttonInit() {
     }
   });
 }
+*/
+
+const FAB_NAME = 'fab';
+const FAB_COLLAPSE_NAME = `${FAB_NAME}--collapse`;
+const FAB_EXTENDED_NAME = `${FAB_NAME}--extended`;
+
+const FAB_CONTAINER_NAME = 'fab__container';
+const FAB_CONTAINER_COLLAPSE_NAME = `${FAB_CONTAINER_NAME}--collapse`;
+const FAB_CONTAINER_EXTENDED_NAME = `${FAB_CONTAINER_NAME}--extended`;
+
+function buttonInit() {
+  const fabRef = document.querySelector(`.${FAB_NAME}`);
+  if (fabRef === null) return;
+  const fabContainerRef = document.querySelector(`.${FAB_CONTAINER_NAME}`);
+  if (fabContainerRef === null) return;
+
+  fabRef.addEventListener('click', () => {
+    if (fabRef.classList.contains(FAB_COLLAPSE_NAME)
+    && fabContainerRef.classList.contains(FAB_CONTAINER_COLLAPSE_NAME)) {
+      fabRef.classList.remove(FAB_COLLAPSE_NAME);
+      fabRef.classList.add(FAB_EXTENDED_NAME);
+      fabContainerRef.classList.remove(FAB_CONTAINER_COLLAPSE_NAME);
+      fabContainerRef.classList.add(FAB_CONTAINER_EXTENDED_NAME);
+      return;
+    }
+
+    if (fabRef.classList.contains(FAB_EXTENDED_NAME)
+    && fabContainerRef.classList.contains(FAB_CONTAINER_EXTENDED_NAME)) {
+      fabRef.classList.remove(FAB_EXTENDED_NAME);
+      fabRef.classList.add(FAB_COLLAPSE_NAME);
+      fabContainerRef.classList.remove(FAB_CONTAINER_EXTENDED_NAME);
+      fabContainerRef.classList.add(FAB_CONTAINER_COLLAPSE_NAME);
+    }
+  });
+}
+
 
 function titleInit() {
   const TITLE_CLASSNAME = 'header__title';
