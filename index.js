@@ -103,19 +103,15 @@ function addItem() {
     if (classes.length === 0) return;
 
     if (classes.includes(`${BUTTON_CLASSNAME}`)) {
-      let i = 0;
-      
-      while (1) {
+      for (let i = 0;; i += 1) {
         arr[i] = prompt('할 일', '');
-        
-        if (arr[i] === null || arr[i] === '') break;
+        if (arr[i] === null || arr[i] === '') {
+          delete arr[i];
+          break;
+        }
         
         addList(i);
-        
-        i++;
         leftCount();
-        
-
       }
     }
   });
