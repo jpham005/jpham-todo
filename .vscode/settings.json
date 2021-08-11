@@ -1,0 +1,6 @@
+{
+    "files.autoSave": "onFocusChange",
+    "editor.rulers": [80],
+    "editor.tabSize": 2,
+    "editor.detectIndentation": false
+}
