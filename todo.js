@@ -47,11 +47,10 @@ export function closeFab(ref, containerRef) {
 
 export function applyLineThrough(e) {
   if (e.target.classList.contains(`${LIST_CLASSNAME}-item--done`)) {
-    e.target.className = `${LIST_CLASSNAME}-item`;
+    e.target.classList.remove(`${LIST_CLASSNAME}-item--done`)
     return;
   }
-  e.target.className =
-    `${LIST_CLASSNAME}-item ${LIST_CLASSNAME}-item--done`;
+  e.target.classList.add(`${LIST_CLASSNAME}-item--done`);
 }
 
 export function deleteItem(e) {
@@ -60,7 +59,7 @@ export function deleteItem(e) {
 
   listRef.removeChild(e.target); 
 
-  let index = state.works.indexOf(e.target.dataset.obj);
+  const index = state.works.indexOf(e.target.dataset.obj);
   state.works.splice(index, 1);
 
   updateCount();  
@@ -74,25 +73,25 @@ export function updateCount() {
 }
 
 export function getInput() {
-  for (let i = 0;; i += 1) {
+  while (true) {
     const p = prompt('할 일', '');
     if (p === null || p === '') {
       break;
     }
-    state.works[i] = createWork(p);
-    
-    addList(i);
-    updateCount();
+    const work = createWork(p);
+    state.works.push(work);
+    addList(work);
+    updateCount();    
   }
 }
 
-export function addList(i) {
+export function addList(work) {
   const listRef = document.querySelector(`.${LIST_CLASSNAME}`);
   if (listRef === null) return;
 
-  let li = document.createElement('li');
+  const li = document.createElement('li');
   li.classList.add('content__list-item');
-  li.dataset.obj = state.works[i];
+  li.dataset.obj = work;
   listRef.appendChild(li);
-  li.innerText = state.works[i].text;
+  li.innerText = work.text;
 }

@@ -8,6 +8,7 @@ import {
 } from './constant.js';
 
 import {
+  handleClickList,
   handleClickListItem,
   handleClickAddItemButton,
   handleClickDeleteItemButton,
@@ -15,15 +16,15 @@ import {
 } from './handle.js';
 
 function initFab() {
-  const fabRef = document.querySelector(`.${FAB_NAME}`);
-  if (fabRef === null) return;
+  const ref = document.querySelector(`.${FAB_NAME}`);
+  if (ref === null) return;
 
-  fabRef.addEventListener('click', handleClickFab);
+  ref.addEventListener('click', handleClickFab);
 }
   
 function initTitle() {
-  const titleRef = document.querySelector(`.${TITLE_CLASSNAME}`);
-  if (titleRef === null) return;
+  const ref = document.querySelector(`.${TITLE_CLASSNAME}`);
+  if (ref === null) return;
 
   const date = new Date();
 
@@ -34,31 +35,28 @@ function initTitle() {
     hour: '2-digit',
   }).format(date);//
   
-  titleRef.innerText = timeFormat.replaceAll('.', '');
+  ref.innerText = timeFormat.replaceAll('.', '');
 }
   
 function initList() {
-  const listRef = document.querySelector(`.${LIST_CLASSNAME}`);
-  if (listRef === null) return;
+  const ref = document.querySelector(`.${LIST_CLASSNAME}`);
+  if (ref === null) return;
 
-  listRef.addEventListener('click', (e) => {
-    if (e.target.nodeName !== 'LI') return;
-    handleClickListItem(e);
-  });
+  ref.addEventListener('click', handleClickList);
 }
 
 function initAddItemButton() {
-  const buttonRef = document.querySelector(`.${ADD_BUTTON_CLASSNAME}`);
-  if (buttonRef === null) return;
+  const ref = document.querySelector(`.${ADD_BUTTON_CLASSNAME}`);
+  if (ref === null) return;
 
-  buttonRef.addEventListener('click', handleClickAddItemButton);
+  ref.addEventListener('click', handleClickAddItemButton);
 }  
 
 function initDeleteItemButton() {
-  const buttonRef = document.querySelector(`.${REMOVE_BUTTON_CLASSNAME}`);
-  if (buttonRef === null) return;
+  const ref = document.querySelector(`.${REMOVE_BUTTON_CLASSNAME}`);
+  if (ref === null) return;
 
-  buttonRef.addEventListener('click', handleClickDeleteItemButton);
+  ref.addEventListener('click', handleClickDeleteItemButton);
 }
 
 function initItemCount() {

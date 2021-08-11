@@ -13,6 +13,12 @@ import {
   state,
 } from './todo.js';
 
+export function handleClickList(e) {
+  if (e.target.nodeName !== 'LI') return;
+  
+  handleClickListItem(e);
+}
+
 export function handleClickListItem(e) {
   if (state.getIsDeleting()) {      
     deleteItem(e);
@@ -35,12 +41,12 @@ export function handleClickDeleteItemButton(e) {
   if (ref === null) return;
 
   if (ref.classList.contains(`${REMOVE_BUTTON_CLASSNAME}--off`)) {
-    ref.className = 
-      `${REMOVE_BUTTON_CLASSNAME} ${REMOVE_BUTTON_CLASSNAME}--on`;
+    ref.classList.remove(`${REMOVE_BUTTON_CLASSNAME}--off`);
+    ref.classList.add(`${REMOVE_BUTTON_CLASSNAME}--on`);
     state.setDeleteMode();
   } else if (ref.classList.contains(`${REMOVE_BUTTON_CLASSNAME}--on`)) {
-    ref.className = 
-      `${REMOVE_BUTTON_CLASSNAME} ${REMOVE_BUTTON_CLASSNAME}--off`;
+    ref.classList.remove(`${REMOVE_BUTTON_CLASSNAME}--on`);
+    ref.classList.add(`${REMOVE_BUTTON_CLASSNAME}--off`);
     state.setLineThroughMode();
   }
 }
