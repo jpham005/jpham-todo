@@ -10,7 +10,7 @@ import {
   deleteItem,
   getInput,
   toggleFab,
-  state,
+  store,
 } from './todo.js';
 
 export function handleClickList(e) {
@@ -20,11 +20,18 @@ export function handleClickList(e) {
 }
 
 export function handleClickListItem(e) {
+  if (store.getState().isDeleting) {
+    deleteItem(e);
+  } else {
+    applyLineThrough(e);
+  }
+  /*
   if (state.getIsDeleting()) {      
     deleteItem(e);
   } else {
     applyLineThrough(e);
   }
+  */
 }
 
 export function handleClickAddItemButton(e) {
@@ -43,11 +50,19 @@ export function handleClickDeleteItemButton(e) {
   if (ref.classList.contains(`${REMOVE_BUTTON_CLASSNAME}--off`)) {
     ref.classList.remove(`${REMOVE_BUTTON_CLASSNAME}--off`);
     ref.classList.add(`${REMOVE_BUTTON_CLASSNAME}--on`);
-    state.setDeleteMode();
+    // state.setDeleteMode();
+    store.dispatch({
+      type: 'setDeleteMode',
+      payload: true,
+    });
   } else if (ref.classList.contains(`${REMOVE_BUTTON_CLASSNAME}--on`)) {
     ref.classList.remove(`${REMOVE_BUTTON_CLASSNAME}--on`);
     ref.classList.add(`${REMOVE_BUTTON_CLASSNAME}--off`);
-    state.setLineThroughMode();
+    // state.setLineThroughMode();
+    store.dispatch({
+      type: 'setDeleteMode',
+      payload: false,
+    });
   }
 }
 

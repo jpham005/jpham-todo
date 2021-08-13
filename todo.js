@@ -6,14 +6,51 @@ import {
   LIST_CLASSNAME,
   UPDATE_COUNT,
 } from './constant.js';
+import { createStore } from './store.js';
 
-export const state = {
+const initialState = {
   works: [],
   isDeleting: false,
-  getIsDeleting() { return this.isDeleting; },
-  setDeleteMode() { this.isDeleting = true; },
-  setLineThroughMode() { this.isDeleting = false; },
 };
+
+function todoReducer(state = initialState, { type, payload }) {
+  switch (type) {
+    case 'addItem': {
+      const works = [...state.works];
+      works.push(payload);
+
+      return {
+        ...state,
+        works,
+      };
+    }
+    case 'removeItem': {
+      const works = [...state.works];
+      const index = works.indexOf(payload);
+      works.splice(index, 1);
+
+      return {
+        ...state,
+        works,
+      }
+    }
+    case 'setDeleteMode': {
+      return {
+        ...state,
+        isDeleting: payload,
+      };
+    }
+    default: {
+      return state;
+    }
+  }
+}
+
+export const store = createStore(todoReducer);
+
+store.subscribe((store) => {
+  console.log(store.getState());
+});
 
 export function createWork(text) {
   return { text };
@@ -59,8 +96,15 @@ export function deleteItem(e) {
 
   listRef.removeChild(e.target); 
 
+  /*
   const index = state.works.indexOf(e.target.dataset.obj);
   state.works.splice(index, 1);
+  */
+
+  store.dispatch({
+    type: 'removeItem',
+    payload: e.target.dataset.obj,
+  });
 
   updateCount();  
 }
@@ -79,7 +123,12 @@ export function getInput() {
       break;
     }
     const work = createWork(p);
-    state.works.push(work);
+    // state.works.push(work);
+
+    store.dispatch({
+      type: 'addItem',
+      payload: work,
+    });
     addList(work);
     updateCount();    
   }
