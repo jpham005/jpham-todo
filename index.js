@@ -1,9 +1,5 @@
-import init from './init.js';
-
-function App() {
-  init();
-}
+import App from './App.js';
 
 (() => {
-  App();
+  new App(document.getElementById('root'));
 })();
