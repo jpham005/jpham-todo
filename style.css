@@ -73,7 +73,7 @@ ul {
   padding-inline: 0;
 }
 
-.container {
+#root {
   width: 32rem;
   height: 48rem;
   position: relative;
@@ -179,7 +179,7 @@ ul {
   opacity: 0;
 }
 
-.fab__container--extends {
+.fab__container--extended {
   opacity: 1;
 }
 
