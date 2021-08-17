@@ -19,7 +19,7 @@ export default class Todos extends Component {
     const { isDeleting, toggleWork, deleteWork } = this.props;
 
     this.addEvent('click', '.content__list-item', ({ target }) => {
-      if (isDeleting) {
+      if (this.props.isDeleting) {
         deleteWork(target.dataset.id.toString());
       } else {
         toggleWork(target.dataset.id.toString());

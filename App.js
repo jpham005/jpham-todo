@@ -62,7 +62,7 @@ export default class App extends Component {
 
   deleteWork(id) {
     const works = [...this.state.works];
-    const index = works.findIndex((el) => el.id === id);
+    const index = works.findIndex((el) => el.id === Number(id));
     if (index < 0) return;
 
     works.splice(index, 1);
